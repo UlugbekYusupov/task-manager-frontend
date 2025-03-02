@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/slices/authSlice";
+
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { registerUser, loginUser } from "@/app/api/authApi";
@@ -20,7 +23,6 @@ type AuthFormProps = {
 };
 
 export default function AuthForm({ isRegister }: AuthFormProps) {
-  const router = useRouter();
 
   const {
     register,
@@ -31,9 +33,13 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setLoading(true);
     setError(null);
+
     try {
       if (isRegister) {
         await registerUser({
@@ -42,8 +48,14 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
           password: data.password,
         });
       } else {
-        await loginUser({ email: data.email, password: data.password });
+        const userData = await loginUser({
+          email: data.email,
+          password: data.password,
+        });
+        dispatch(login({ userId: userData.userId, token: userData.token }));
+        router.push("/dashboard");
       }
+
       router.push("/dashboard");
       alert(isRegister ? "Registration successful!" : "Login successful!");
     } catch (err: unknown) {

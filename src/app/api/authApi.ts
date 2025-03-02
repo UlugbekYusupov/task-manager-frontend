@@ -15,6 +15,11 @@ export const loginUser = async (credentials: {
   password: string;
 }) => {
   const response = await axios.post(`${API_BASE_URL}/login`, credentials);
-  localStorage.setItem("token", response.data.token);
+  console.log(response.data);
+
   return response.data;
+};
+
+export const logoutUser = async () => {
+  localStorage.removeItem("token");
 };
