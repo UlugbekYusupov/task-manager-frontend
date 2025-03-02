@@ -1,4 +1,4 @@
-import AuthForm from "@/app/components/AuthForm";
+import AuthForm from "@/components/forms/AuthForm";
 
 export default function LoginPage() {
   return <AuthForm isRegister={false} />;
