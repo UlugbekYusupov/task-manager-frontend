@@ -63,7 +63,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white border-l border-b border-gray-200 p-4 flex justify-between items-center">
+    <nav className=" sticky top-0 z-50 w-full bg-white border-l border-b border-gray-200 p-4 flex justify-between items-center">
       <div className="flex items-center space-x-4">
         <div className="relative">
           <Input
