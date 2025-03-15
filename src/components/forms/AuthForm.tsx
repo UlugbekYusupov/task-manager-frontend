@@ -12,6 +12,8 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+import { setProjects } from "@/store/slices/projectSlice";
+
 type FormData = {
   username?: string;
   email: string;
@@ -23,7 +25,6 @@ type AuthFormProps = {
 };
 
 export default function AuthForm({ isRegister }: AuthFormProps) {
-
   const {
     register,
     handleSubmit,
@@ -52,10 +53,25 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
           email: data.email,
           password: data.password,
         });
-        dispatch(login({ userId: userData.userId, token: userData.token }));
+
+        dispatch(
+          login({
+            userId: userData.userId,
+            token: userData.token,
+            user: { username: userData.username, email: userData.email },
+          })
+        );
+        dispatch(
+          setProjects({
+            ownedProjects: userData.ownedProjects,
+            participatedProjects: userData.participatedProjects,
+          })
+        );
+
+        console.log(userData);
+
         router.push("/dashboard");
       }
-
       router.push("/dashboard");
       alert(isRegister ? "Registration successful!" : "Login successful!");
     } catch (err: unknown) {
@@ -69,7 +85,6 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
 
   return (
     <div className="flex flex-col md:flex-row h-screen text-gray-900">
-      {/* Left Side: Form */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10">
         <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
           {isRegister ? "Sign Up" : "Welcome Back"}

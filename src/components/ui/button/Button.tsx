@@ -21,13 +21,11 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   disabled = false,
 }) => {
-  // Size Classes
   const sizeClasses = {
     sm: "px-4 py-3 text-sm",
     md: "px-5 py-3.5 text-sm",
   };
 
-  // Variant Classes
   const variantClasses = {
     primary:
       "bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300",
