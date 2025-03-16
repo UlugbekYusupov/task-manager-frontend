@@ -7,11 +7,13 @@ import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import Input from "../ui/input/InputField";
 import Button from "../ui/button/Button";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/authSlice";
+import { RootState } from "@/store/store";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const toggleDropdown = (menu: string) => {
     setDropdownOpen(dropdownOpen === menu ? null : menu);
@@ -63,8 +65,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" sticky top-0 z-50 w-full bg-white border-l border-b border-gray-200 p-4 flex justify-between items-center">
-      <div className="flex items-center space-x-4">
+    <nav className="flex items-center justify-between sticky top-0 z-50 w-full bg-white border-l border-b border-gray-200 p-4">
+      <h1 className="text-xl font-semibold">Good day {user?.username}</h1>
+
+      <div className="flex items-center space-x-3">
         <div className="relative">
           <Input
             type="text"
@@ -75,9 +79,6 @@ const Navbar = () => {
           />
           <Search size={20} className="absolute left-3 top-2.5 text-gray-500" />
         </div>
-      </div>
-
-      <div className="flex items-center space-x-2">
         <div className="relative">
           <DropdownButton icon={Bell} type="notifications" />
           {dropdownOpen === "notifications" && (
@@ -86,7 +87,6 @@ const Navbar = () => {
             </div>
           )}
         </div>
-
         <div className="relative">
           <DropdownButton icon={HelpCircle} type="info" />
           {dropdownOpen === "info" && (
@@ -97,16 +97,15 @@ const Navbar = () => {
             </div>
           )}
         </div>
-
         <div className="relative">
           <DropdownButton icon={Image} type="profile" isImage />
           {dropdownOpen === "profile" && (
             <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-md p-3 z-50">
               <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-                Musharof Chowdhury
+                {user?.username}
               </span>
               <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-                randomuser@pimjo.com
+                {user?.email}
               </span>
               <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800">
                 {[

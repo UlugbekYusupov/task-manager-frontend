@@ -10,3 +10,10 @@ export const createProject = async (
   });
   return response.data;
 };
+
+export const fetchProjects = async (token: string) => {
+  const response = await axios.get(`${API_BASE_URL}/projects`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};

@@ -12,7 +12,6 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { setProjects } from "@/store/slices/projectSlice";
 
 type FormData = {
   username?: string;
@@ -61,15 +60,7 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
             user: { username: userData.username, email: userData.email },
           })
         );
-        dispatch(
-          setProjects({
-            ownedProjects: userData.ownedProjects,
-            participatedProjects: userData.participatedProjects,
-          })
-        );
-
         console.log(userData);
-
         router.push("/dashboard");
       }
       router.push("/dashboard");
