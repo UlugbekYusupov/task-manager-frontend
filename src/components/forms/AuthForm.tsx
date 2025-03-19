@@ -12,7 +12,6 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-
 type FormData = {
   username?: string;
   email: string;
@@ -92,10 +91,10 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
                 type="text"
                 placeholder="Enter your username"
                 {...register("username", { required: "Username is required" })}
-                className={`w-full p-2 border rounded-md transition-all outline-none ${
+                className={`w-full p-2 border rounded-md transition-all  outline-none ${
                   errors.username
                     ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-1 focus:ring-blue-700 focus:border-blue-700"
+                    : "border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
                 }`}
               />
               {errors.username && (
@@ -114,7 +113,7 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
               className={`w-full p-2 border rounded-md transition-all outline-none ${
                 errors.email
                   ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-1 focus:ring-blue-700 focus:border-blue-700"
+                  : "border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
               }`}
             />
             {errors.email && (
@@ -152,7 +151,7 @@ export default function AuthForm({ isRegister }: AuthFormProps) {
 
           <button
             type="submit"
-            className="w-full cursor-pointer bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+            className="w-full transition ease-in duration-200  cursor-pointer bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
             disabled={loading}
           >
             {loading ? "Processing..." : isRegister ? "Register" : "Login"}

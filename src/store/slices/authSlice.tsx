@@ -15,7 +15,7 @@ interface AuthState {
 const initialState: AuthState = {
   userId: Cookies.get("userId") || null,
   token: Cookies.get("token") || null,
-  user: JSON.parse(Cookies.get("user") || "") || null,
+  user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
 };
 
 const authSlice = createSlice({

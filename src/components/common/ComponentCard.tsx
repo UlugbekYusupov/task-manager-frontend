@@ -4,12 +4,14 @@ interface ComponentCardProps {
   title: string;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
   title,
   children,
   className = "",
+  onClick,
 }) => {
   return (
     <div
@@ -22,10 +24,8 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
           </h3>
         </div>
         <button
-          onClick={() => {
-            console.log("clicked");
-          }}
-          className="bg-blue-500 px-8 py-2 rounded-lg mr-4 text-white"
+          onClick={onClick}
+          className="bg-blue-500 shadow-md hover:bg-blue-600 transition ease-in duration-200 cursor-pointer px-8 py-2 rounded-lg mr-4 text-white"
         >
           Create Project
         </button>

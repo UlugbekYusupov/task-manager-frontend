@@ -28,10 +28,9 @@ const ProjectCard: React.FC<ProjectProps> = ({
 }) => {
   return (
     <div
-      className="bg-white rounded-lg shadow-md p-4 border hover:shadow-lg cursor-pointer"
+      className="bg-white rounded-lg border border-gray-200  p-4 cursor-pointer"
       onClick={onClick}
     >
-      {/* Header: Project Name + Status */}
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">{name}</h3>
         <span
@@ -41,13 +40,12 @@ const ProjectCard: React.FC<ProjectProps> = ({
         </span>
       </div>
 
-      {/* Project Description */}
-      <p className="text-gray-600 text-sm mt-1">{description}</p>
+      <p className="text-gray-600 line-clamp-2 overflow-hidden text-sm mt-1">
+        {description}
+      </p>
 
-      {/* Owner */}
       <p className="text-xs text-gray-500 mt-2">Owner: {owner.username}</p>
 
-      {/* Members */}
       <div className="flex items-center mt-2">
         <p className="text-xs text-gray-500">Members:</p>
         <div className="flex ml-2">
@@ -67,7 +65,6 @@ const ProjectCard: React.FC<ProjectProps> = ({
         )}
       </div>
 
-      {/* Task Count */}
       <div className="text-xs text-gray-500 mt-2">Tasks: {tasks.length}</div>
     </div>
   );
